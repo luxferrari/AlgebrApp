@@ -1,0 +1,154 @@
+/** Add css rules here for your application. */
+@font-face {
+	font-family: 'STIXGeneral';
+	src: url('fonts/stixgeneral-webfont.eot');
+	src: local('[smiley]'), url('fonts/stixgeneral-webfont.woff')
+		format('woff'), url('fonts/stixgeneral-webfont.ttf')
+		format('truetype'),
+		url('fonts/stixgeneral-webfont.svg#webfontZXtFAA5Q') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'STIXGeneral';
+	src: url('fonts/stixgeneralitalic-webfont.eot');
+	src: local('[smiley]'), url('fonts/stixgeneralitalic-webfont.woff')
+		format('woff'), url('fonts/stixgeneralitalic-webfont.ttf')
+		format('truetype'),
+		url('fonts/stixgeneralitalic-webfont.svg#webfont2oJeLJIt')
+		format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'STIXGeneral';
+	src: url('fonts/stixgeneralbol-webfont.eot');
+	src: local('[smiley]'), url('fonts/stixgeneralbol-webfont.woff')
+		format('woff'), url('fonts/stixgeneralbol-webfont.ttf')
+		format('truetype'),
+		url('fonts/stixgeneralbol-webfont.svg#webfontwFpnxWyx') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'STIXGeneral';
+	src: url('fonts/stixgeneralbolita-webfont.eot');
+	src: local('[smiley]'), url('fonts/stixgeneralbolita-webfont.woff')
+		format('woff'), url('fonts/stixgeneralbolita-webfont.ttf')
+		format('truetype'),
+		url('fonts/stixgeneralbolita-webfont.svg#webfontSsfHxKRo')
+		format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+	font-size: 1.5em;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.sendButton {
+	display: block;
+	font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.dialogVPanel {
+	margin: 5px;
+}
+
+.serverResponseLabelError {
+	color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+	margin: 15px 6px 6px;
+}
+
+.main-panel {
+	margin: auto;
+}
+
+button.math {
+	font-family: 'STIXGeneral';
+	height: 48px;
+	padding: 0;
+	width: auto;
+}
+
+button.answer-button {
+	min-width: 48px;
+}
+
+button.monomial,button.symbol {
+	background: none repeat scroll 0 0 transparent;
+	border: none;
+}
+
+button.symbol {
+	font-size: 24px;
+	font-style: italic;
+}
+
+div.math {
+	font-size: 24px;
+	font-style: italic;
+}
+
+button.selected>div,table.selected {
+	border: 1px solid #dc5c04;
+	border-radius: 5px;
+}
+
+button.unselected>div,table.unselected {
+	border: none;
+}
+
+.dragdrop-movable-panel {
+	width: 100px !important;
+}
+
+sub.index {
+	position: absolute;
+}
+
+div.gwt-HTML {
+	position: relative;
+}
+
+.gwt-HTML sub {
+	bottom: -6em;
+}
+
+table.main-poly {
+	background: none repeat scroll 0 0 #d7ecfc;
+    border: 1px solid #133D5E;
+    border-radius: 6px 6px 6px 6px;
+    margin: 1em;
+    padding: 2em;
+}
+
+table.popup-calculation {
+	margin: auto;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+button.refresh {
+	background: url("./pictures/Refresh-icon.png") no-repeat scroll 0 0 transparent;
+    height: 48px;
+    width: 48px;
+}
