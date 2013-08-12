@@ -18,6 +18,7 @@ public class Product extends HorizontalPanel{
 	public HorizontalPanel firstFactor = new HorizontalPanel();
 	public HorizontalPanel secondFactor = new HorizontalPanel();
 	private Polynomial parentPoly = null;
+	private boolean showsign = true;
 
 	public Product(Polynomial p1, Polynomial p2) {	
 		super();
@@ -29,10 +30,15 @@ public class Product extends HorizontalPanel{
 
 	// Copy constructor
 
-	public Product(Product p, boolean isDropTarget){
+	public Product(Product p, boolean isDropTarget, boolean drawSign){
 		this(new Polynomial(p.getFirstFactorContent(), isDropTarget), new Polynomial(p.getSecondFactorContent(), isDropTarget));
 		this.setParentPoly(p.getParentPoly());
-	}    
+		this.showsign = drawSign;
+	}  
+	
+	public Product(Product p, boolean isDropTarget){
+		this(p, isDropTarget, true);
+	}
 
 	public Polynomial getFirstFactorContent(){
 		return firstFactorContent;
@@ -59,10 +65,11 @@ public class Product extends HorizontalPanel{
 		secondFactorContent.refreshPolynomial();
 		
 		String sign = "+";
-		if(this.getParentPoly().getWidgetIndex(this) == 0) sign = "";
+		if(this.getParentPoly().getWidgetIndex(this) == 0) showsign = false; 
+		if(!showsign) sign = "";
 
 		// Populate the first factor of this product, a HorizontalPanel holding a polynomial -> ( -> )
-		if(firstFactorContent.getLength() > 1){
+		if(firstFactorContent.getLength() > 1 ){
 			firstFactorContent.setLeftFactor(true);
 			firstFactor.add(firstFactorContent);
 			firstFactor.insert(new Symbol(sign + "("), 0);
@@ -74,10 +81,10 @@ public class Product extends HorizontalPanel{
 			m.setLeftFactor(true);
 			firstFactor.add(firstFactorContent);
 			if(m.getCoefficient() > 0){
-				m.showPlusSign = true;
+				m.showPlusSign = showsign ? true : false;
 				m.refreshHTML();				
 			}
-			else{				
+			else{			
 				firstFactor.insert(new Symbol(sign + "("), 0);
 				firstFactor.add(new Symbol(")"));
 			}

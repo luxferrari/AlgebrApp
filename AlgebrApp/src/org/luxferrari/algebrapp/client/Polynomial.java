@@ -260,6 +260,11 @@ public class Polynomial extends HorizontalPanel implements Selectable{
 
 		return true;
 	}
+	
+	public Boolean isOnlyAProduct(){
+		if(this.getWidgetCount() == 1 && this.getWidget(0) instanceof Product) return true;
+		else return false;
+	}
 
 	public Map<Integer, List<String>> contentMap(){
 		HashMap<Integer, List<String>> result = new HashMap<Integer, List<String>>();

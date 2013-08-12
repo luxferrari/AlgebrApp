@@ -84,6 +84,7 @@ public class MonomialDragHandler implements DragHandler {
 				}
 				
 				msgPanel(constants.notAllowed());
+				errorCounter++;
 				throw new VetoDragException();
 			}
 		}

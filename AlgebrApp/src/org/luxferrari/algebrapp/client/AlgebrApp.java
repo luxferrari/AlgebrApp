@@ -2,25 +2,22 @@ package org.luxferrari.algebrapp.client;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
-import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.query.client.GQuery;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
 
@@ -28,7 +25,7 @@ import org.luxferrari.algebrapp.client.RandomGenerator;
 
 
 public final class AlgebrApp implements EntryPoint {	
-	
+
 	/*------------------------------------------------------
 	 * 		Initial settings
 	 *------------------------------------------------------*/
@@ -51,8 +48,11 @@ public final class AlgebrApp implements EntryPoint {
 
 		RootPanel.get().add(wrapPanel);
 		wrapPanel.add(mainPanel);
-		wrapPanel.addStyleName("wrap-panel");
-		mainPanel.addStyleName("main-panel");
+		wrapPanel.addStyleName("wrapPanel");
+		mainPanel.addStyleName("mainPanel");
+
+		toolPanel.setStyleName("toolPanel");
+		mainPanel.add(toolPanel);
 
 		/*------------------------------------------------------
 		 * 		Drag and drop 
@@ -73,11 +73,11 @@ public final class AlgebrApp implements EntryPoint {
 		mainDragController.addDragHandler(dragHandler);
 
 
+		// Polinomio
 
 		refreshExpression();
-		
-		// Refresh button
 
+		// Refresh button
 		Button refresh = new Button();
 		refresh.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -87,38 +87,44 @@ public final class AlgebrApp implements EntryPoint {
 		});
 		refresh.addStyleName("refresh");
 		refresh.setTitle(constants.refreshButtonTooltip());
-		mainPanel.add(refresh);
+		buttonPanel.add(refresh);
 
-		operate.setText(constants.operateButtonText());
+		// Success button
+		Button success = new Button();
+		success.addClickHandler(new ClickHandler(){
+			@Override
+			public void onClick(ClickEvent event) {	
+				checkSuccess();
+			}
+		});
+		success.addStyleName("success");
+		success.setTitle(constants.successButtonTooltip());
+		buttonPanel.add(success);
+
+		// Operate button		
 		operate.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				msgPanel();
 				checkOperation();
 			}
 		});
+		operate.addStyleName("operate");
 		operate.setTitle(constants.operateButtonTooltip());
-		mainPanel.add(operate);		
+		buttonPanel.add(operate);	
 
+		// Button panel
+		buttonPanel.setStyleName("buttonPanel");
+		toolPanel.add(buttonPanel);
 
-		/*Button test = new Button("test");
-		test.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-
-				HashMap map2 = mainPoly.contentMap();
-
-			}
-		});
-		mainPanel.add(test);	*/
-
-		mainPanel.add(msgFrame);
-
-
+		// Slider		
+		levelSlider.addStyleName("levelSlider");
+		toolPanel.add(levelSlider);
 	}
 
 
 
-	public void refreshExpression(){
-		
+	public static void refreshExpression(){
+
 		mainDragController.unregisterDropControllers();
 		rndGenerator = new RandomGenerator();
 
@@ -126,17 +132,20 @@ public final class AlgebrApp implements EntryPoint {
 		if(getMainPoly() != null){
 			mainPanel.remove(getMainPoly());
 			getMainPoly().disposeOfMembers();
-		}		
-
-		// TODO cambiare metodo con quello definitivo
-		//setMainPoly(createTestPoly());
-		setMainPoly(rndGenerator.randomPolynomial(10, 3, 10, 2, 1));
+		}	
+		
+		// Regenerate
+		int level = 1;
+		if(levelSlider.getValue() != null) level = levelSlider.getValue();
+		double[] settings = settingsArray[level];
+		Z_ONLY = (int) settings[0];
+		setMainPoly(rndGenerator.randomPolynomial((int)settings[1], (int)settings[2], (int)settings[3], (int)settings[4], (double)settings[5]));
 		mainPoly.refreshPolynomial();
-		getMainPoly().addStyleName("main-poly");
+		getMainPoly().addStyleName("mainPoly");
 		mainPanel.insert(getMainPoly(), MAINPOLY_IN_MAINPANEL); 
 	}
 
-	private Polynomial createTestPoly() {
+	/*private Polynomial createTestPoly() {
 		// TODO metodo temporaneo
 		int ordine = 2;
 		int rangeCoefficienti = 10;
@@ -145,21 +154,21 @@ public final class AlgebrApp implements EntryPoint {
 		final Polynomial poly = new Polynomial();
 		poly.addMonomial(rndGenerator.randomMonomials(2, ordine, rangeCoefficienti, numLettere));
 
-		/*Polynomial factor_1 = new Polynomial();
+		Polynomial factor_1 = new Polynomial();
 		Polynomial factor_2 = new Polynomial();
 		factor_1.addMonomial(rndGenerator.randomMonomials(2, ordine, rangeCoefficienti, numLettere));
 		factor_2.addMonomial(rndGenerator.randomMonomials(2, ordine, rangeCoefficienti, numLettere));
 		Product prod_1 = new Product(factor_1, factor_2);			
 
-		poly.insertProduct(prod_1, 2);*/
+		poly.insertProduct(prod_1, 2);
 
 		Polynomial factor_3 = new Polynomial();
 		Polynomial factor_4 = new Polynomial();
 		Monomial f3 = rndGenerator.randomMonomials(1, ordine, rangeCoefficienti, numLettere)[0];
 		Monomial f4 = rndGenerator.randomMonomials(1, ordine, rangeCoefficienti, numLettere)[0];
-		
+
 		System.err.println(f3.getCoefficient()+" * "+f4.getCoefficient());
-		
+
 		factor_3.addMonomial(f3);
 		factor_4.addMonomial(f4);
 		Product prod_2 = new Product(factor_3, factor_4);		
@@ -168,12 +177,12 @@ public final class AlgebrApp implements EntryPoint {
 
 		poly.refreshPolynomial();
 		return poly;
-	}
+	}*/
 
 	public static void checkOperation(){
 
 		if(selectedWidgets.isEmpty()){
-			msgPanel("Nessun elemento selezionato!!!");
+			msgPanel(constants.noSelection());
 		}
 		else{
 			selectedItemsList = new SelectedItemsList(selectedWidgets);
@@ -182,41 +191,31 @@ public final class AlgebrApp implements EntryPoint {
 			errorType checkAddition = selectedItemsList.canPerformAddition();
 			errorType checkProduct =  null;			
 			final Product p = selectedItemsList.returnProduct();
-			if(p == null) checkProduct = errorType.PRECEDENZE;
-			else if(!p.isProductReduced()) checkProduct = errorType.NON_RIDOTTO;
+			if(p == null) checkProduct = errorType.ORDER_OF_OPERATIONS;
+			else if(!p.isProductReduced()) checkProduct = errorType.NOT_REDUCED;
 			else checkProduct = errorType.NONE;
 
-			if(checkAddition == errorType.NON_SIMILI){
-				msgPanel("Non puoi eseguire il calcolo, gli addendi non sono monomi simili!!!");
-				return;
-			}
-			if(checkProduct == errorType.NON_RIDOTTO){
-				msgPanel("I fattori non sono stati calcolati completamente!!!");
-				return;
-			}			
-			if(checkProduct == errorType.PRECEDENZE && checkAddition == errorType.PRECEDENZE){
-				msgPanel("Non puoi eseguire questo calcolo, non rispetta le precedenze!!!");
-				return;
-			}
+			dial = new PopupPanel();
 
-			dial = new DialogBox();
-			Button b = new Button("Ok");
-			b.addClickHandler(new ClickHandler(){
-				@Override
-				public void onClick(ClickEvent event) {	
-					dial.hide();
-				}
-			});
+			VerticalPanel vPanel = new VerticalPanel();
+			HorizontalPanel hPanel = new HorizontalPanel();
 
-			final VerticalPanel vPanel = new VerticalPanel();
-			final HorizontalPanel hPanel = new HorizontalPanel();			
+			Label calculateText = new Label(constants.calculateText());
+			Label clickResultText = new Label(constants.clickResultText());			
 
+
+			vPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+			hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
 			if(checkAddition == errorType.NONE){
+
+				vPanel.add(calculateText);
 
 				Polynomial addition = new Polynomial(selectedItemsList.getAdditionPolynomial(), false);
 				addition.addStyleName("popup-calculation");
 				vPanel.add(addition);
+
+				vPanel.add(clickResultText);
 
 				ArrayList<Monomial> choices = selectedItemsList.additionResultsList();
 				rightAnswerAddition = choices.get(0);
@@ -225,13 +224,18 @@ public final class AlgebrApp implements EntryPoint {
 				for(Monomial item : choices){
 					hPanel.add(makeButtonFromMonomial(item));
 				}
+				vPanel.add(hPanel);
 			}
 			else if(checkProduct == errorType.NONE){
 
-				Product product = new Product(p, false);
+				vPanel.add(calculateText);
+
+				Product product = new Product(p, false, false);
 				product.addStyleName("popup-calculation");
 				vPanel.add(product);
 				product.refreshProduct();
+
+				vPanel.add(clickResultText);
 
 				ArrayList<Polynomial> choices = p.productResultsList();
 				rightAnswerProduct = choices.get(0);
@@ -241,18 +245,29 @@ public final class AlgebrApp implements EntryPoint {
 					vPanel.add(makeButtonFromPoly(item));
 				}
 			}
+			else if(checkProduct == errorType.NOT_REDUCED){
+				msgPanel(constants.notReduced());
+				errorCounter++;
+				return;
+			}
+			else if(checkAddition == errorType.NOT_SIMILAR){
+				msgPanel(constants.notSimilar());
+				errorCounter++;
+				return;
+			}
+			else if(checkProduct == errorType.ORDER_OF_OPERATIONS && checkAddition == errorType.ORDER_OF_OPERATIONS){
+				msgPanel(constants.orderOfOperations());
+				errorCounter++;
+				return;
+			}
 
-			vPanel.add(hPanel);
-			vPanel.add(b);
+			//vPanel.add(b);
 			dial.add(vPanel);
 			dial.setModal(true);
-			int cx = mainPoly.getAbsoluteLeft() + mainPoly.getOffsetWidth() / 2;
-			int cy = mainPoly.getAbsoluteTop() + mainPoly.getOffsetHeight() / 2;
-			int x = cx - dial.getOffsetWidth() / 2;
-			int y = cy - dial.getOffsetHeight() / 2;
+			dial.setAutoHideEnabled(true);
+			dial.setAnimationEnabled(true);	
 
-			dial.setPopupPosition(x,y);
-			dial.show();
+			dial.center();
 		}			
 	}
 
@@ -264,14 +279,15 @@ public final class AlgebrApp implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				if(m.equals(rightAnswerAddition)){
 					dial.hide();
-					msgPanel("Corretto!");
+					msgPanel(constants.correct());
 					executeAddition();
 					dial = null;
 
 				}
 				else{
 					dial.hide();
-					msgPanel("Non corretto");
+					msgPanel(constants.incorrect());
+					errorCounter++;
 					dial = null;
 				}
 			}
@@ -289,7 +305,6 @@ public final class AlgebrApp implements EntryPoint {
 			p.insertMonomial(new Monomial(rightAnswerAddition, true), position);
 		}
 		selectedItemsList = null;
-		checkSuccess();
 	}
 
 	public static Button makeButtonFromPoly(final Polynomial p){
@@ -300,13 +315,14 @@ public final class AlgebrApp implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				if(p.isEqualTo(rightAnswerProduct)){
 					dial.hide();
-					msgPanel("Corretto!");
+					msgPanel(constants.correct());
 					executeProduct();
 					dial = null;
 				}
 				else{
 					dial.hide();
-					msgPanel("Non corretto");
+					msgPanel(constants.incorrect());
+					errorCounter++;
 					dial = null;
 				}
 			}
@@ -323,15 +339,16 @@ public final class AlgebrApp implements EntryPoint {
 		p.removeFromParent();
 		container.insertPolynomial(rightAnswerProduct, position);
 		selectedItemsList= null;
-		checkSuccess();
 	}
 
 	private static void checkSuccess(){
 		mainPoly.refreshPolynomial();
 		if(mainPoly.checkReduced()) {
-			msgPanel();
-			msgPanel("Successo!!!");
-
+			if(errorCounter == 1) msgPanel(messages.calculationCompletedWithOneError());
+			else msgPanel(messages.calculationCompleted(""+errorCounter));
+		}
+		else{
+			msgPanel(constants.noSuccess());
 		}
 	}
 }

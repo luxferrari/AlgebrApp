@@ -14,7 +14,7 @@ public class RandomGenerator extends Random{
 
 	public RandomGenerator() {
 		super();
-		literalsSet = this.nextInt(arrLiterals.length);
+		literalsSet = 1 + this.nextInt(arrLiterals.length - 1);
 	}
 	
 	@Override
@@ -24,7 +24,8 @@ public class RandomGenerator extends Random{
 	}
 
 	public int getLiteralsSet(){
-		return literalsSet;
+		if(Z_ONLY == 1) return 0;
+		else return literalsSet;
 	}
 
 
@@ -55,7 +56,7 @@ public class RandomGenerator extends Random{
 		return m;
 	}
 
-	public Product randomProduct(int totalLength, int order, int coeffRange, int literalsNumber, float productFrequency){
+	public Product randomProduct(int totalLength, int order, int coeffRange, int literalsNumber, double productFrequency){
 		Product result = null;
 		int subOrder1 = order > 1 ? 1 + this.nextInt(order - 1) : 1;
 		int subLength1 = totalLength > 1 ? 1 + this.nextInt(totalLength - 1) : 1;
@@ -71,24 +72,25 @@ public class RandomGenerator extends Random{
 		return result;
 	}
 
-	public Polynomial randomPolynomial(int totalLength, int order, int coeffRange, int literalsNumber, float productFrequency){
+	public Polynomial randomPolynomial(int totalLength, int order, int coeffRange, int literalsNumber, double productFrequency){
 		Polynomial result = new Polynomial();
 		if (productFrequency > 1) productFrequency = 1;
-		int maxProductsNumber = (int)(productFrequency * this.nextInt((int)(totalLength / 2)));
+		int maxProductsNumber = totalLength > 1 ? (int)(productFrequency * (1 + this.nextInt((int)(totalLength / 2 - 1)))) : 0;
 		int productsNumber = 0;
 		int length = 0;
 
 		while(length < totalLength && productsNumber < maxProductsNumber){
-			int productLength = this.nextInt((int)(totalLength / maxProductsNumber));
+			int productLength = this.nextInt((int)(totalLength));
 			Product p = randomProduct(productLength, order, coeffRange, literalsNumber, productFrequency);
 			length += p.getLength();
 			result.insertProduct(p, 0);
 			productsNumber++;			
 		}
-		while(length < totalLength){
+		do{
 			result.insertMonomial(randomMonomials(1, order, coeffRange, literalsNumber), this.nextInt(result.getWidgetCount()));
 			length++;
 		}
+		while  (length < totalLength);
 
 		return result;
 	}

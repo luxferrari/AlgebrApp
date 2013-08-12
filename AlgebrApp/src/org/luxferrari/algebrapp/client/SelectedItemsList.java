@@ -74,20 +74,20 @@ public class SelectedItemsList extends ArrayList<Selectable>{
 		for(Selectable item : this){
 			if(item == null) continue;
 
-			if(!(item instanceof Monomial)) return errorType.PRECEDENZE; 	// Devono essere selezionati solo monomi
+			if(!(item instanceof Monomial)) return errorType.ORDER_OF_OPERATIONS; 	// Devono essere selezionati solo monomi
 
 			Monomial m = (Monomial)item;
 
 			// Controlla che siano tutti nello stesso polinomio
 			if(parent == null){parent = m.getParentPoly();}
 			else{
-				if(!parent.equals(m.getParentPoly())) {return errorType.PRECEDENZE;}	// precedenze			
+				if(!parent.equals(m.getParentPoly())) {return errorType.ORDER_OF_OPERATIONS;}	// precedenze			
 			}
 
 			// Controlla che siano simili
 			if(prev == null){prev = m;}
 			else{
-				if(!prev.isSimilar(m)){return errorType.NON_SIMILI; } // non simili
+				if(!prev.isSimilar(m)){return errorType.NOT_SIMILAR; } // non simili
 			}
 		}
 		return errorType.NONE;
@@ -225,7 +225,7 @@ public class SelectedItemsList extends ArrayList<Selectable>{
 				if(prod == null) {prod = m.getParentPoly().getParentProduct();
 				}
 				else{
-					if(!prod.equals(m.getParentPoly().getParentProduct())){return null;}	// precedenze			
+					if(!prod.equals(m.getParentPoly().getParentProduct())){return null; }	// precedenze			
 				}
 				if(prod == null){return null;}	// È il caso se il monomio appartiene al polinomio principale, quindi non è in un prodotto
 				monList.add(m);
