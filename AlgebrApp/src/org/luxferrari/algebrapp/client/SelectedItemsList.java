@@ -1,13 +1,23 @@
 package org.luxferrari.algebrapp.client;
 
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.INCORRECT_ADDITION_CASES;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.INCORRECT_LITERALS_CASES;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.SHOWN_ADDITIONS_NUMBER;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.joinStrArrays;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.operate;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.rndGenerator;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.luxferrari.algebrapp.client.Selectable;
-import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
+import org.luxferrari.algebrapp.client.AlgebrAppGlobals.errorType;
 
 public class SelectedItemsList extends ArrayList<Selectable>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6452164406591647641L;
 
 	public SelectedItemsList() {
 		super();

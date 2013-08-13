@@ -75,7 +75,7 @@ public class RandomGenerator extends Random{
 	public Polynomial randomPolynomial(int totalLength, int order, int coeffRange, int literalsNumber, double productFrequency){
 		Polynomial result = new Polynomial();
 		if (productFrequency > 1) productFrequency = 1;
-		int maxProductsNumber = totalLength > 1 ? (int)(productFrequency * (1 + this.nextInt((int)(totalLength / 2 - 1)))) : 0;
+		int maxProductsNumber = totalLength > 1 ? (int)(productFrequency * (this.nextInt((int)(totalLength / 2 )))) : 0;
 		int productsNumber = 0;
 		int length = 0;
 

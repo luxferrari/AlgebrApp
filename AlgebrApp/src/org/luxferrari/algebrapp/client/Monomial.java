@@ -41,25 +41,24 @@ public class Monomial extends Button implements Selectable{
 		this.deselect();
 		this.setTitle(constants.tooltipMonomial());
 
+		if(isDraggable){
+			getMainDragController().makeDraggable(this);
+			addClickHandler(new ClickHandler(){
+				@Override
+				public void onClick(ClickEvent event) {  
 
-		if(isDraggable){getMainDragController().makeDraggable(this);}
+					msgPanel();
+					//il primo clic seleziona, il secondo clic fa partire un'operazione --- 
 
-
-		addClickHandler(new ClickHandler(){
-			@Override
-			public void onClick(ClickEvent event) {  
-
-				msgPanel();
-				//il primo clic seleziona, il secondo clic fa partire un'operazione --- 
-
-				if(selected){
-					deselect();
+					if(selected){
+						deselect();
+					}
+					else{
+						select();
+					}
 				}
-				else{
-					select();
-				}
-			}
-		});		    
+			});		
+		}    
 	}
 
 	public Monomial(int c, String[] l){
@@ -85,11 +84,6 @@ public class Monomial extends Button implements Selectable{
 
 	String[] getLiterals(){
 		return literals;
-	}
-
-	private void setLiterals(String[] l){
-		Arrays.sort(l);
-		literals = removeOnes(l);
 	}
 
 	public int getCoefficient(){
@@ -168,7 +162,6 @@ public class Monomial extends Button implements Selectable{
 		String html="<div class = \"math\">";
 		int power;
 		int lng = this.literals.length;
-		int last = lng - 1;
 
 
 		/*
@@ -218,20 +211,6 @@ public class Monomial extends Button implements Selectable{
 					}
 				}
 			}
-			/*if(!this.literals[last].equals("1")){
-				power = countOccurrence(this.literals[last], this.literals);	  
-				if(power==1){
-					html += this.literals[last];
-				}
-				else {
-					html += this.literals[last]+"<sup>"+power+"</sup>";
-				}						
-			}					
-			else{
-
-			}
-		}
-		else */
 			if (isScalar && (this.coefficient==1 || this.coefficient==-1)){
 				html+="1";							
 			}
@@ -258,7 +237,6 @@ public class Monomial extends Button implements Selectable{
 
 	public void refreshHTML() {
 		this.setHTML(buildHTMLTitle());
-
 	}
 
 	public boolean isSimilar(Monomial m){

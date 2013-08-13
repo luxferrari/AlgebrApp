@@ -48,8 +48,8 @@
 /** Example rules used by the template application (remove for your app) */
 h1 {
 	font-size: 1.5em;
-	color: #777777;
-	margin: 40px 0px 70px;
+	color: #666;
+	margin: 40px 0px 40px;
 	text-align: center;
 }
 
@@ -100,6 +100,30 @@ button.monomial,button.symbol {
 button.symbol {
 	font-size: 24px;
 	font-style: italic;
+	height: 64px;
+}
+
+button.size1, span.size1 {
+    font-size: 32px;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+button.size2, span.size2 {
+    font-size: 36px;
+    margin-left: -4px;
+    margin-right: -4px;
+    margin-top: -2px;
+}
+
+button.monomial:hover{
+	box-shadow: 0 1px 1px #666;
+	margin: -1px;
+}
+
+button.monomial:active {
+    border: 1px inset #666;
+    border-radius: 2px;
 }
 
 div.math {
@@ -109,7 +133,7 @@ div.math {
 
 button.selected>div,table.selected {
 	border: 1px solid #dc5c04;
-	border-radius: 5px;
+	border-radius: 2px;
 }
 
 button.unselected>div,table.unselected {
@@ -180,6 +204,38 @@ button.success {
 	margin-left: 5px;
 }
 
+button.refresh:hover, button.operate:hover, button.success:hover {
+	opacity: 0.8;	
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+	border: 1px solid #666;
+}
+
+/* Glowing buttons */
+@keyframes pulse {
+    from { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1; }
+    25% { background-color: #def; box-shadow: 0 0 32px #99f; opacity: 0.8;}
+	50% { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1;}
+	75% { background-color: #afa; box-shadow: 0 0 32px #0f0; opacity: 0.8;}v
+    to { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1;}
+}      
+    
+@-webkit-keyframes greenPulse {
+    from { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1; }
+    25% { background-color: #def; -webkit-box-shadow: 0 0 32px #99f; opacity: 0.8;}
+	50% { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1;}
+	75% { background-color: #afa; -webkit-box-shadow: 0 0 32px #0f0; opacity: 0.8;}v
+    to { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1;}
+}
+
+button.glowingButton {
+	animation-name: pulse;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	-webkit-animation-name: pulse;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+}
+
 #levelLabel {
 	text-align: center;
 	margin-bottom: 0.3em;
@@ -195,11 +251,17 @@ div.levelSlider {
 	border-radius: 5px 5px 5px 5px;
 	clear: both;
 	background-color: #ccc;
-	padding: 0.5em;
+	padding: 0.5em 1em;
 }
 
-#slider > a.ui-slider-handle{
+#slider>a.ui-slider-handle {
 	border: 1px solid #666;
+}
+
+div.sliderTitle {
+	color: #666666;
+	font-size: larger;
+	text-align: center;
 }
 
 div.buttonPanel {
@@ -210,12 +272,6 @@ div.buttonPanel {
 div.toolPanel {
 	width: 500px;
 	margin: auto;
-}
-
-div.sliderTitle {
-	color: #666666;
-    font-size: larger;
-    text-align: center;
 }
 
 div.gwt-PopupPanel {

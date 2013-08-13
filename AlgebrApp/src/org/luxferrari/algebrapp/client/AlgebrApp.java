@@ -7,10 +7,8 @@ import java.util.List;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.query.client.GQuery;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -77,11 +75,13 @@ public final class AlgebrApp implements EntryPoint {
 
 		refreshExpression();
 
-		// Refresh button
-		Button refresh = new Button();
+		// Refresh button		
 		refresh.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				msgPanel();
+				if(!success.isVisible()){
+					success.setVisible(true);
+					refresh.removeStyleName("glowingButton");
+				}
 				refreshExpression();
 			}
 		});
@@ -90,7 +90,6 @@ public final class AlgebrApp implements EntryPoint {
 		buttonPanel.add(refresh);
 
 		// Success button
-		Button success = new Button();
 		success.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {	
@@ -124,7 +123,8 @@ public final class AlgebrApp implements EntryPoint {
 
 
 	public static void refreshExpression(){
-
+		
+		selectedWidgets.clearSelected();
 		mainDragController.unregisterDropControllers();
 		rndGenerator = new RandomGenerator();
 
@@ -141,13 +141,20 @@ public final class AlgebrApp implements EntryPoint {
 		Z_ONLY = (int) settings[0];
 		setMainPoly(rndGenerator.randomPolynomial((int)settings[1], (int)settings[2], (int)settings[3], (int)settings[4], (double)settings[5]));
 		mainPoly.refreshPolynomial();
+		
+		//setMainPoly(createTestPoly());
+		
 		getMainPoly().addStyleName("mainPoly");
 		mainPanel.insert(getMainPoly(), MAINPOLY_IN_MAINPANEL); 
+		
+		
+		
+		
 	}
 
-	/*private Polynomial createTestPoly() {
+	private static Polynomial createTestPoly() {
 		// TODO metodo temporaneo
-		int ordine = 2;
+		int ordine = 3;
 		int rangeCoefficienti = 10;
 		int numLettere = 2;
 
@@ -156,18 +163,18 @@ public final class AlgebrApp implements EntryPoint {
 
 		Polynomial factor_1 = new Polynomial();
 		Polynomial factor_2 = new Polynomial();
-		factor_1.addMonomial(rndGenerator.randomMonomials(2, ordine, rangeCoefficienti, numLettere));
-		factor_2.addMonomial(rndGenerator.randomMonomials(2, ordine, rangeCoefficienti, numLettere));
+		factor_1.addMonomial(rndGenerator.randomMonomials(3, ordine-1, rangeCoefficienti, numLettere));
+		factor_2.addMonomial(rndGenerator.randomMonomials(2, ordine-2, rangeCoefficienti, numLettere));
 		Product prod_1 = new Product(factor_1, factor_2);			
 
 		poly.insertProduct(prod_1, 2);
 
 		Polynomial factor_3 = new Polynomial();
 		Polynomial factor_4 = new Polynomial();
-		Monomial f3 = rndGenerator.randomMonomials(1, ordine, rangeCoefficienti, numLettere)[0];
-		Monomial f4 = rndGenerator.randomMonomials(1, ordine, rangeCoefficienti, numLettere)[0];
+		Monomial f3 = rndGenerator.randomMonomials(1, ordine-2, rangeCoefficienti, numLettere)[0];
+		Monomial f4 = rndGenerator.randomMonomials(2, ordine-1, rangeCoefficienti, numLettere)[0];
 
-		System.err.println(f3.getCoefficient()+" * "+f4.getCoefficient());
+		//System.err.println(f3.getCoefficient()+" * "+f4.getCoefficient());
 
 		factor_3.addMonomial(f3);
 		factor_4.addMonomial(f4);
@@ -177,7 +184,7 @@ public final class AlgebrApp implements EntryPoint {
 
 		poly.refreshPolynomial();
 		return poly;
-	}*/
+	}
 
 	public static void checkOperation(){
 
@@ -305,6 +312,7 @@ public final class AlgebrApp implements EntryPoint {
 			p.insertMonomial(new Monomial(rightAnswerAddition, true), position);
 		}
 		selectedItemsList = null;
+		p.refreshPolynomial();
 	}
 
 	public static Button makeButtonFromPoly(final Polynomial p){
@@ -339,11 +347,13 @@ public final class AlgebrApp implements EntryPoint {
 		p.removeFromParent();
 		container.insertPolynomial(rightAnswerProduct, position);
 		selectedItemsList= null;
+		container.refreshPolynomial();
 	}
 
 	private static void checkSuccess(){
-		mainPoly.refreshPolynomial();
 		if(mainPoly.checkReduced()) {
+			refresh.addStyleName("glowingButton");
+			success.setVisible(false);
 			if(errorCounter == 1) msgPanel(messages.calculationCompletedWithOneError());
 			else msgPanel(messages.calculationCompleted(""+errorCounter));
 		}

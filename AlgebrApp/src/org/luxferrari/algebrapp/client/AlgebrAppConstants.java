@@ -37,7 +37,7 @@ public interface AlgebrAppConstants extends Constants{
 	@DefaultStringValue("Clicca quando hai terminato il calcolo")
 	String successButtonTooltip();
 	
-	@DefaultStringValue("Difficoltà")
+	@DefaultStringValue("Livello")
 	String sliderTitle();
 	
 	@DefaultStringValue("Corretto")

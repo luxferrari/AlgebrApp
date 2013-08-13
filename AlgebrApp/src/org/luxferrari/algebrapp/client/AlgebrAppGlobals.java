@@ -1,28 +1,17 @@
 package org.luxferrari.algebrapp.client;
 
-import static org.luxferrari.algebrapp.client.AlgebrApp.*;
-import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
-import java.util.RandomAccess;
-
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AlgebrAppGlobals {
@@ -39,9 +28,10 @@ public class AlgebrAppGlobals {
 	public static final int SHOWN_ADDITIONS_NUMBER = 4;
 	public static final int INCORRECT_ADDITION_CASES = 4;
 	public static final int INCORRECT_LITERALS_CASES = 3;
-	public static final int SHOWN_PRODUCTS_NUMBER = 3;
+	public static final int SHOWN_PRODUCTS_NUMBER = 4;
 	public static final int INCORRECT_PRODUCTS_CASES = 3;
 	public static final int LEVELS_NUMBER = 10;
+	public static boolean canRefresh = true;
 
 	public static int errorCounter = 0;
 	public static AlgebrAppConstants constants = GWT.create(AlgebrAppConstants.class);
@@ -52,16 +42,18 @@ public class AlgebrAppGlobals {
 	public static FlowPanel buttonPanel = new FlowPanel();
 	public static Label msgFrame = new Label();	
 	public static Button operate = new Button();
+	public static Button refresh = new Button();
+	public static Button success = new Button();
 	public static IncrementSlider levelSlider = new IncrementSlider();
 
 	public static String[][] arrLiterals = {
 		{"1","1","1"},
-		{"1", "a", "b"},
+		{"a", "1", "b"},
 		{"x", "y", "z"},
 		{"a", "b", "c"},
-		{"1","x","y"}, 
+		{"x","1","y"}, 
 		{"u","v","z"}, 
-		{"1","&#960;","r"}
+		{"r","&#960;","1"}
 	};		
 
 	public enum errorType {
@@ -77,14 +69,14 @@ public class AlgebrAppGlobals {
 		{1,				5,				1,				10,				1,				0	},	// Level 0
 		{1,				6,				1,				20,				1,				0.8	},	// Level 1
 		{1,				8,				1,				30,				1,				1	},	// Level 2
-		{0,				5,				2,				10,				2,				0	},	// Level 3
-		{0,				5,				3,				10,				2,				0	},	// Level 4
-		{0,				8,				2,				20,				2,				1	},	// Level 5
-		{0,				8,				2,				20,				2,				1	},	// Level 6
-		{0,				10,				3,				20,				2,				0.8	},	// Level 7
-		{0,				10,				3,				20,				3,				1	},	// Level 8
-		{0,				12,				3,				20,				3,				1	},	// Level 9
-		{0,				15,				4,				20,				3,				1	},	// Level 10
+		{0,				5,				1,				10,				2,				0	},	// Level 3
+		{0,				5,				2,				10,				2,				0	},	// Level 4
+		{0,				8,				2,				20,				3,				0.7	},	// Level 5
+		{0,				8,				2,				20,				3,				1	},	// Level 6
+		{0,				8,				3,				20,				2,				0.8	},	// Level 7
+		{0,				10,				3,				20,				2,				1	},	// Level 8
+		{0,				10,				3,				20,				3,				1	},	// Level 9
+		{0,				12,				4,				20,				3,				1	},	// Level 10
 	};
 
 	/*------------------------------------------------------
@@ -103,7 +95,7 @@ public class AlgebrAppGlobals {
 	public static PopupPanel dial = new PopupPanel();
 	public static MessagePopup msgBox = new MessagePopup();
 
-	public static Timer closePopup = new Timer() {
+	public static Timer popupClose = new Timer() {
 		public void run() {
 			msgBox.hide();
 		}
@@ -118,7 +110,7 @@ public class AlgebrAppGlobals {
 	public static final void msgPanel(String msg) {
 		msgBox.setText(msg);
 		msgBox.center();
-		closePopup.schedule(5000);
+		popupClose.schedule(5000);
 		/*if (!msgFrame.isVisible()){msgFrame.setVisible(true);}
 		msgFrame.setText(msg);*/
 	}

@@ -1,5 +1,13 @@
 package org.luxferrari.algebrapp.client;
 
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.INCORRECT_PRODUCTS_CASES;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.SHOWDOT;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.SHOWN_PRODUCTS_NUMBER;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.constants;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.joinStrArrays;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.rndGenerator;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.selectedWidgets;
+
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -7,25 +15,38 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
-import org.luxferrari.algebrapp.client.Monomial;
-import org.luxferrari.algebrapp.client.Symbol;
-import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
-
 public class Product extends HorizontalPanel{
 
 	private Polynomial firstFactorContent = null;
 	private Polynomial secondFactorContent = null;
-	public HorizontalPanel firstFactor = new HorizontalPanel();
-	public HorizontalPanel secondFactor = new HorizontalPanel();
+	private HorizontalPanel firstFactor = new HorizontalPanel();
+	private HorizontalPanel secondFactor = new HorizontalPanel();
+	private int firstFactorParenthesisLevel = 0;
+	private int secondFactorParenthesisLevel = 0;
 	private Polynomial parentPoly = null;
 	private boolean showsign = true;
-
+	
 	public Product(Polynomial p1, Polynomial p2) {	
 		super();
 		firstFactorContent = p1;
 		firstFactorContent.setParentProduct(this);
 		secondFactorContent = p2;
 		secondFactorContent.setParentProduct(this);
+		
+		if(firstFactorContent.getChildrenProducts().size() > 0){
+			int leftMax = 0;	
+			for(Product item : firstFactorContent.getChildrenProducts()){
+				leftMax = item.getParenthesisLevel() > leftMax ? item.getParenthesisLevel() : leftMax;
+			}
+			firstFactorParenthesisLevel = leftMax+1;			
+		}
+		if(secondFactorContent.getChildrenProducts().size() > 0){
+			int rightMax = 0;	
+			for(Product item : secondFactorContent.getChildrenProducts()){
+				rightMax = item.getParenthesisLevel() > rightMax ? item.getParenthesisLevel() : rightMax;
+			}
+			secondFactorParenthesisLevel = rightMax+1;			
+		}
 	}
 
 	// Copy constructor
@@ -33,6 +54,8 @@ public class Product extends HorizontalPanel{
 	public Product(Product p, boolean isDropTarget, boolean drawSign){
 		this(new Polynomial(p.getFirstFactorContent(), isDropTarget), new Polynomial(p.getSecondFactorContent(), isDropTarget));
 		this.setParentPoly(p.getParentPoly());
+		this.firstFactorParenthesisLevel = p.firstFactorParenthesisLevel;
+		this.secondFactorParenthesisLevel = p.secondFactorParenthesisLevel;
 		this.showsign = drawSign;
 	}  
 	
@@ -55,6 +78,11 @@ public class Product extends HorizontalPanel{
 	public void setParentPoly(Polynomial parent) {
 		this.parentPoly = parent;
 	}
+	
+	public int getParenthesisLevel(){
+		if(firstFactorParenthesisLevel > secondFactorParenthesisLevel) return firstFactorParenthesisLevel;
+		else return secondFactorParenthesisLevel;
+	}
 
 	public void refreshProduct(){
 				
@@ -72,8 +100,11 @@ public class Product extends HorizontalPanel{
 		if(firstFactorContent.getLength() > 1 ){
 			firstFactorContent.setLeftFactor(true);
 			firstFactor.add(firstFactorContent);
-			firstFactor.insert(new Symbol(sign + "("), 0);
-			firstFactor.add(new Symbol(")"));
+			Symbol openParenthesis = new Symbol(sign + "<span class='size" + firstFactorParenthesisLevel + "'>(</span>");
+			firstFactor.insert(openParenthesis, 0);
+			Symbol closedParenthesis = new Symbol(")");
+			closedParenthesis.addStyleName("size"+firstFactorParenthesisLevel);
+			firstFactor.add(closedParenthesis);
 			firstFactor.add(new HTML("<sub class='index'></sub>"));
 		}
 		else{
@@ -85,8 +116,11 @@ public class Product extends HorizontalPanel{
 				m.refreshHTML();				
 			}
 			else{			
-				firstFactor.insert(new Symbol(sign + "("), 0);
-				firstFactor.add(new Symbol(")"));
+				Symbol openParenthesis = new Symbol(sign + "<span class='size" + firstFactorParenthesisLevel+"'>(</span>");
+				firstFactor.insert(openParenthesis, 0);
+				Symbol closedParenthesis = new Symbol(")");
+				closedParenthesis.addStyleName("size"+firstFactorParenthesisLevel);
+				firstFactor.add(closedParenthesis);
 			}
 		}		
 		this.add(firstFactor);
@@ -110,8 +144,12 @@ public class Product extends HorizontalPanel{
 		if(secondFactorContent.getLength() > 1){
 			secondFactorContent.setRightFactor(true);
 			secondFactor.add(secondFactorContent);
-			secondFactor.insert(new Symbol("("), 0);
-			secondFactor.add(new Symbol(")"));
+			Symbol openParenthesis = new Symbol("(");
+			openParenthesis.addStyleName("size"+secondFactorParenthesisLevel);
+			secondFactor.insert(openParenthesis, 0);
+			Symbol closedParenthesis = new Symbol(")");
+			closedParenthesis.addStyleName("size"+secondFactorParenthesisLevel);
+			secondFactor.add(closedParenthesis);
 			secondFactor.add(new HTML("<sub class='index'></sub>"));
 		}
 		else{
@@ -123,8 +161,12 @@ public class Product extends HorizontalPanel{
 				m.refreshHTML();				
 			}
 			else{				
-				secondFactor.insert(new Symbol("("), 0);
-				secondFactor.add(new Symbol(")"));
+				Symbol openParenthesis = new Symbol("(");
+				openParenthesis.addStyleName("size"+secondFactorParenthesisLevel);
+				secondFactor.insert(openParenthesis, 0);
+				Symbol closedParenthesis = new Symbol(")");
+				closedParenthesis.addStyleName("size"+secondFactorParenthesisLevel);
+				secondFactor.add(closedParenthesis);
 			}
 		}
 		this.add(secondFactor);
@@ -188,7 +230,7 @@ public class Product extends HorizontalPanel{
 				result.addMonomial(((Monomial)this.getFirstFactorContent().getWidget(k)).multiply((Monomial)this.getSecondFactorContent().getWidget(0)));
 			}
 			for(int k = 1; k < L2; k++){
-				result.addMonomial((Monomial)this.getSecondFactorContent().getWidget(k));			
+				result.addMonomial(new Monomial((Monomial)this.getSecondFactorContent().getWidget(k)));			
 			}
 			break;
 
@@ -266,12 +308,14 @@ public class Product extends HorizontalPanel{
 		this.clear();
 
 		Polynomial a = new Polynomial(firstFactorContent);
+		int b = firstFactorParenthesisLevel;
 		firstFactorContent.disposeOfMembers();
 		firstFactorContent = secondFactorContent;
+		firstFactorParenthesisLevel = secondFactorParenthesisLevel;
 		secondFactorContent = a;
+		secondFactorParenthesisLevel = b;
 		secondFactorContent.setParentProduct(this);
-
-
+		
 		refreshProduct();
 	}
 

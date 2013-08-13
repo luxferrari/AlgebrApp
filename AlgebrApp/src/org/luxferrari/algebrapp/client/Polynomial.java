@@ -1,20 +1,20 @@
 package org.luxferrari.algebrapp.client;
 
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.getMainDragController;
+import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.selectedWidgets;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.allen_sauer.gwt.dnd.client.drop.HorizontalPanelDropController;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import org.luxferrari.algebrapp.client.Monomial;
-import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
 
 public class Polynomial extends HorizontalPanel implements Selectable{    
 
