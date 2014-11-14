@@ -1,21 +1,27 @@
 package org.luxferrari.algebrapp.client;
 
+import java.awt.dnd.DropTarget;
+
 import com.allen_sauer.gwt.dnd.client.DragEndEvent;
 import com.allen_sauer.gwt.dnd.client.DragHandler;
 import com.allen_sauer.gwt.dnd.client.DragStartEvent;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 import static org.luxferrari.algebrapp.client.AlgebrAppGlobals.*;
+import static com.google.gwt.query.client.GQuery.$;
 
 
 public class MonomialDragHandler implements DragHandler {
 
 	Polynomial source;
-	//boolean commute = false;
-	HorizontalPanel daddy = null;
-
+	HorizontalPanel daddy;
+	Monomial draggable;
+	int init_x = 0;
+	int init_y = 0; 
+			
 	@Override
 	public void onPreviewDragStart(DragStartEvent event)
 			throws VetoDragException {
@@ -33,17 +39,12 @@ public class MonomialDragHandler implements DragHandler {
 		if(dragSource instanceof Polynomial){
 			source = (Polynomial)dragSource;
 			
-			if(source.getParent() instanceof HorizontalPanel){
-				int index;				
-				daddy = (HorizontalPanel)source.getParent();
-				index = daddy.getWidgetIndex(source);
-				
-				if(index == POLY_BETWEEN_PARENTHESIS && source.getLength() < 2){
-					daddy.getWidget(index - 1).setVisible(false);
-					daddy.getWidget(index + 1).setVisible(false);
-				}
+			draggable = (Monomial)event.getContext().draggable;
+			init_x = draggable.getAbsoluteLeft();
+			init_y = draggable.getAbsoluteTop();
+			
+			
 			}
-		}
 		else{
 			throw new VetoDragException(); // Non dovrebbe accadere
 		}
@@ -58,11 +59,11 @@ public class MonomialDragHandler implements DragHandler {
 	public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
 
 		// Accetta come dropTarget soltanto un polinomio, altrimenti il drag viene annullato
-		Widget dropTarget = null;
+		InsertPanel dropTarget = null;
 		Polynomial target = null;
 
 		try {
-			dropTarget = event.getContext().dropController.getDropTarget();
+			dropTarget = (InsertPanel) event.getContext().dropController.getDropTarget();
 		} catch (Exception e) {
 			if(DEBUG){System.err.println("onPreviewDragEnd -> getDropTarget -> "+event+ " - Exception: "+e);}	
 		}
@@ -70,43 +71,39 @@ public class MonomialDragHandler implements DragHandler {
 
 		if(dropTarget instanceof Polynomial){	// Permette spostamenti all'interno di un polinomio
 			target = (Polynomial)dropTarget;
-			
-			if (!source.equals(target)){
-				
-				if(source.getParent() instanceof HorizontalPanel){
-					int index;
-					daddy = (HorizontalPanel)source.getParent();
-					index = daddy.getWidgetIndex(source);
-					if(index == POLY_BETWEEN_PARENTHESIS && source.getLength() < 2){
-						daddy.getWidget(index - 1).setVisible(true);
-						daddy.getWidget(index + 1).setVisible(true);
-					}
-				}
+			if (!source.equals(target)){		
 				
 				msgPanel(constants.notAllowed());
-				errorCounter++;
-				throw new VetoDragException();
-			}
+				errorCounter++;				
+				revert(event);
+			}			
 		}
 		else{
-			msgPanel("!?");
-			throw new VetoDragException();	
+			msgPanel("!?");	
+			revert(event);
 		}		
 	}
-
+	
+	private void revert(DragEndEvent event) throws VetoDragException {
+		Integer x = event.getContext().desiredDraggableX ; 
+		Integer y = event.getContext().desiredDraggableY ; 
+		
+		$(draggable).css("left", x - init_x + "").css("top", y - init_y + "");
+		$(draggable).animate("{left: 0 ; top: 0 }", 500);
+		
+		throw new VetoDragException();
+	}
+		
 	@Override
 	public void onDragEnd(DragEndEvent event) {
-		// Dopo il drop		
-		
+		// Dopo il drop				
 		
 		try {
-			Widget dropTarget = event.getContext().finalDropController.getDropTarget();
+			InsertPanel dropTarget = (InsertPanel) event.getContext().finalDropController.getDropTarget();
 			if(dropTarget instanceof Polynomial){
-				//((Polynomial) dropTarget).refreshPolynomial();
-				mainPoly.refreshPolynomial();
-				
-			}			
-		} catch (Exception e) {
+				mainPoly.refresh();			
+			}
+		} catch (Exception e) {			
 			if(DEBUG){System.err.println("onDragEnd -> "+event+ " - Exception: "+ e + " Message: "+e.getMessage());		
 			}
 		}

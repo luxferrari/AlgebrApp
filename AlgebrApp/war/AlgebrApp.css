@@ -1,14 +1,4 @@
 /** Add css rules here for your application. */
-@font-face {
-	font-family: 'STIXGeneral';
-	src: url('fonts/stixgeneral-webfont.eot');
-	src: local('[smiley]'), url('fonts/stixgeneral-webfont.woff')
-		format('woff'), url('fonts/stixgeneral-webfont.ttf')
-		format('truetype'),
-		url('fonts/stixgeneral-webfont.svg#webfontZXtFAA5Q') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
 @font-face {
 	font-family: 'STIXGeneral';
@@ -22,247 +12,66 @@
 	font-style: italic;
 }
 
-@font-face {
-	font-family: 'STIXGeneral';
-	src: url('fonts/stixgeneralbol-webfont.eot');
-	src: local('[smiley]'), url('fonts/stixgeneralbol-webfont.woff')
-		format('woff'), url('fonts/stixgeneralbol-webfont.ttf')
-		format('truetype'),
-		url('fonts/stixgeneralbol-webfont.svg#webfontwFpnxWyx') format('svg');
-	font-weight: bold;
-	font-style: normal;
+/** Basic  */
+#AlgebrAppHeader {
+	color: #666666;
+    display: block;
+    font-size: 1.5em;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 500px;
 }
 
-@font-face {
-	font-family: 'STIXGeneral';
-	src: url('fonts/stixgeneralbolita-webfont.eot');
-	src: local('[smiley]'), url('fonts/stixgeneralbolita-webfont.woff')
-		format('woff'), url('fonts/stixgeneralbolita-webfont.ttf')
-		format('truetype'),
-		url('fonts/stixgeneralbolita-webfont.svg#webfontSsfHxKRo')
-		format('svg');
-	font-weight: bold;
-	font-style: italic;
+body {
+	background: #eee !important;
 }
 
-/** Example rules used by the template application (remove for your app) */
-h1 {
-	font-size: 1.5em;
-	color: #666;
-	margin: 40px 0px 40px;
-	text-align: center;
+#AlgebrAppHeader > div {
+    float: left;
+    margin-top: 0.5em;
 }
 
-.sendButton {
-	display: block;
-	font-size: 16pt;
+#copy {
+	bottom: 0;
+    color: #aaa;
+    float: left;
+    left: 0;
+    position: fixed;
 }
 
-/** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
 	width: 400px;
-}
-
-.dialogVPanel {
-	margin: 5px;
-}
-
-.serverResponseLabelError {
-	color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-	margin: 15px 6px 6px;
 }
 
 .mainPanel {
 	margin: auto;
 }
 
-button.math {
-	font-family: 'STIXGeneral';
-	height: 48px;
-	padding: 0;
-	width: auto;
-}
-
-button.answer-button {
-	min-width: 48px;
-	margin: 0.5em;
-}
-
-button.monomial,button.symbol {
-	background: none repeat scroll 0 0 transparent;
-	border: none;
-}
-
-button.symbol {
-	font-size: 24px;
-	font-style: italic;
-	height: 64px;
-}
-
-button.size1, span.size1 {
-    font-size: 32px;
-    margin-left: -4px;
-    margin-right: -4px;
-}
-
-button.size2, span.size2 {
-    font-size: 36px;
-    margin-left: -4px;
-    margin-right: -4px;
-    margin-top: -2px;
-}
-
-button.monomial:hover{
-	box-shadow: 0 1px 1px #666;
-	margin: -1px;
-}
-
-button.monomial:active {
-    border: 1px inset #666;
-    border-radius: 2px;
-}
-
-div.math {
-	font-size: 24px;
-	font-style: italic;
-}
-
-button.selected>div,table.selected {
-	border: 1px solid #dc5c04;
-	border-radius: 2px;
-}
-
-button.unselected>div,table.unselected {
-	border: none;
-}
-
 .dragdrop-movable-panel {
 	width: 100px !important;
 }
 
-sub.index {
-	position: absolute;
-}
+/*	Pannelli */
 
-div.gwt-HTML {
-	position: relative;
-}
-
-.gwt-HTML sub {
-	bottom: -6em;
-}
-
-table.mainPoly {
-	background: none repeat scroll 0 0 #d7ecfc;
+table.mainPoly {	
 	border: 1px solid #133D5E;
 	border-radius: 6px 6px 6px 6px;
 	margin: auto;
 	margin-bottom: 1em;
 	margin-top: 1em;
 	padding: 2em;
+	
+	background: #deefff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #deefff 0%, #98bede 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #deefff 0%,#98bede 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #deefff 0%,#98bede 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #deefff 0%,#98bede 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #deefff 0%,#98bede 100%); /* W3C */	
 }
 
-table.popup-calculation {
-	margin: auto;
-}
-
-.clickable {
-	cursor: pointer;
-}
-
-.messageFrame {
-	float: right;
-	padding: 12px;
-	font-size: 18px;
-	font-style: normal;
-}
-
-button.refresh {
-	background: url("./pictures/Refresh-icon.png") no-repeat scroll 0 0
-		transparent;
-	height: 48px;
-	width: 48px;
-	float: left;
-}
-
-button.operate {
-	background: url("./pictures/calc.png") no-repeat scroll 0 0 transparent;
-	height: 48px;
-	width: 48px;
-	float: right;
-}
-
-button.success {
-	background: url("./pictures/ok.png") no-repeat scroll 0 0 transparent;
-	height: 48px;
-	width: 48px;
-	float: left;
-	margin-left: 5px;
-}
-
-button.refresh:hover, button.operate:hover, button.success:hover {
-	opacity: 0.8;	
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-	border: 1px solid #666;
-}
-
-/* Glowing buttons */
-@keyframes pulse {
-    from { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1; }
-    25% { background-color: #def; box-shadow: 0 0 32px #99f; opacity: 0.8;}
-	50% { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1;}
-	75% { background-color: #afa; box-shadow: 0 0 32px #0f0; opacity: 0.8;}v
-    to { background-color: #fff; box-shadow: 0 0 9px #fff; opacity: 1;}
-}      
-    
-@-webkit-keyframes greenPulse {
-    from { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1; }
-    25% { background-color: #def; -webkit-box-shadow: 0 0 32px #99f; opacity: 0.8;}
-	50% { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1;}
-	75% { background-color: #afa; -webkit-box-shadow: 0 0 32px #0f0; opacity: 0.8;}v
-    to { background-color: #fff; -webkit-box-shadow: 0 0 9px #fff; opacity: 1;}
-}
-
-button.glowingButton {
-	animation-name: pulse;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-	-webkit-animation-name: pulse;
-	-webkit-animation-duration: 2s;
-	-webkit-animation-iteration-count: infinite;
-}
-
-#levelLabel {
-	text-align: center;
-	margin-bottom: 0.3em;
-}
-
-#slider {
-	margin: auto;
-	margin-bottom: 2em;
-}
-
-div.levelSlider {
-	border: 1px solid #666;
-	border-radius: 5px 5px 5px 5px;
-	clear: both;
-	background-color: #ccc;
-	padding: 0.5em 1em;
-}
-
-#slider>a.ui-slider-handle {
-	border: 1px solid #666;
-}
-
-div.sliderTitle {
-	color: #666666;
-	font-size: larger;
-	text-align: center;
-}
 
 div.buttonPanel {
 	margin-bottom: 1em;
@@ -274,14 +83,554 @@ div.toolPanel {
 	margin: auto;
 }
 
+#z-only, #simplified {
+    float: right;
+    margin: 1em 0;
+    width: 150px;
+    text-align: center;
+}
+
+#simplified button {
+	background: url("style/images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border-radius: 4px 4px 4px 4px;
+    height: 36px;
+    width: 48px;
+}
+
+div.zOnlyContainer, div.simplifiedContainer{
+	clear: both;
+}
+
+#z-only + div, #simplified + div {
+    float: left;
+    margin-top: 1em;
+    width: 60%;
+}
+
+#gwt-uid-1 + label, #gwt-uid-3 + label {
+	border-radius: 4px 0 0 4px;	
+}
+
+#gwt-uid-2 + label, #gwt-uid-4 + label {
+	border-radius: 0 4px 4px 0;	
+}
+
+#radio + .gwt-Label {
+	color: #666666;
+    float: left;
+    margin: 1em 0;
+    text-align: left;
+    width: 250px;
+}
+
+#settingsMenu .ui-accordion-header{
+	background: url("style/images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border: 1px solid #D3D3D3;
+    background: #ffffff; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2YxZjFmMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc2JSIgc3RvcC1jb2xvcj0iI2UxZTFlMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNmY2ZjYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f1f1f1 50%, #e1e1e1 76%, #f6f6f6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(76%,#e1e1e1), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 76%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 76%,#f6f6f6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 76%,#f6f6f6 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 76%,#f6f6f6 100%); /* W3C */	
+}
+
+
+
+span.ui-button-text{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.ui-buttonset .ui-button {
+    width: 60px;
+}
+
+/*	Slider */
+
+#slider {
+	margin: auto;
+	margin-bottom: 2em;
+}
+
+div.levelSlider {
+	border-top: 1px solid #666;
+	clear: both;
+	padding: 1.5em 0 0 0;
+}
+
+#levelLabel {
+	text-align: center;
+	margin-bottom: 0.3em;
+	margin-top: 0.5em;
+}
+
+
+#slider>a.ui-slider-handle {
+	border: 1px solid #666;
+}
+
+div.sliderTitle {
+	color: #666666;
+	text-align: left;
+}
+
+
+/* 	Menu collassabile */
+
+h5.menuHeader {
+	margin: -15px 0 0 30px;
+}
+
+#helpMenu {  
+	width: 500px;
+}
+
+
+/* 	Testo e aspetto dei monomi */
+
+.math {	
+	font-family: 'STIXGeneral';	
+	font-size: 24px;
+	font-style: italic;
+}
+button.math {
+	padding: 0;
+	width: auto;
+}
+
+div.math {
+	font-size: 24px;
+	font-style: italic;
+}
+
+span.fraction, span.top, span.bottom {
+    padding: 0 3px 0 0;
+    position: relative;
+    bottom: -0.1em;    
+}
+
+span.fraction {
+    display: inline-block;
+    text-align: center;   
+    font-size: 18px; 
+    top: 0.2em;
+}
+span.sign{
+	position: relative;
+}
+.fraction > span.sign, .fraction > span.literalPart{
+	position: relative;
+	bottom: 0.4em;
+}
+
+.symbol > span.sign{
+	bottom: 0;
+	margin-right: 0.2em;
+}
+
+/*.symbol.fraction > span.sign{
+	margin-right: 0.2em;
+}*/
+
+span.bottom{
+    display: block;
+    border-top: 1px solid #000;
+}
+
+.fraction sup {
+    bottom: 0.4em;
+    position: relative;
+}
+
+.continuousFraction td.top {
+    position: relative;
+    display: block;
+}
+
+table.continuousFraction {
+    display: inline-block;
+    text-align: center;   
+}
+
+.continuousFraction div.math{
+	font-size: 18px
+}
+
+.continuousFraction button.monomial, .continuousFraction .top button.symbol{
+	height: auto;
+}
+
+.continuousFraction td.bottom{
+	font-family: 'STIXGeneral';
+	font-size: 18px;
+    display: block;    
+    text-align: center;
+    border-top: 1px solid #000;  
+}
+
+/*	Aspetto dei monomi e dei simboli */
+
+
+button.monomial, button.symbol {
+	background-color: transparent;
+	border: none;
+	white-space: nowrap;
+	height: 64px;
+	position: relative;
+}
+
+button.symbol {
+	font-size: 24px;
+	font-style: italic;
+	position: relative;
+}
+
+button.parenthesis, span.parenthesis {
+	position: relative;	
+}
+
+.Q .parenthesis {
+	bottom: 0;
+    display: inline-block;
+    transform: scale(1,1.5); /* W3C */
+    -webkit-transform: scale(1,1.5); /* Safari and Chrome */
+    -moz-transform: scale(1,1.5); /* Firefox */
+    -ms-transform: scale(1,1.5); /* IE 9 */
+    -o-transform: scale(1,1.5); /* Opera */
+}
+
+.monomial .fraction .parenthesis {
+	bottom: 0.3em;
+	font-size: 28px;
+}
+
+.continuousFraction .parenthesis {
+	transform: scale(1,0.9);
+}
+
+button.size0, span.size0 {
+    font-size: 24px;   
+}
+
+button.size1, span.size1 {
+    font-size: 26px; 
+}
+
+button.size2, span.size2 {
+    font-size: 28px;
+}
+
+button.size3, span.size3 {
+    font-size: 30px;
+}
+
+button.size4, span.size4 {
+    font-size: 32px;
+}
+
+button.size5, span.size5 {
+    font-size: 34px;
+}
+
+button.size6, span.size6 {
+    font-size: 36px;
+}
+
+button.size7, span.size7 {
+    font-size: 38px;
+}
+
+button.size8, span.size8 {
+    font-size: 40px;
+}
+
+
+
+button.monomial.dragdrop-handle:hover{
+	box-shadow: 0 1px 1px #666;
+	margin: 0px;
+}
+
+button.monomial.dragdrop-handle:active {
+    border: 1px inset #666;
+    border-radius: 2px;
+}
+
+/* 	Selezione */
+
+button.selected>div,table.selected {
+	border: 1px solid #dc5c04;
+	border-radius: 2px;
+}
+
+button.unselected>div,table.unselected {
+	border: none;
+}
+
+/* Indici */
+
+.factor, .subPoly {
+	position: relative;
+}
+
+div.gwt-HTML {
+	position: relative;
+}
+
+sub {
+    color: red;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+sub.index {
+	position: absolute;
+}
+
+sub.monomialIndex {
+	left: 5px;
+    top: -1.1em;
+}
+
+sub.factorIndex, sub.subPolyIndex {
+    left: -0.7em;
+    top: -3.7em;
+}
+
+.continuousFraction .math sub.index {
+    top: -1.6em;    
+}
+
+.continuousFraction sub.monomialIndex {
+	top: 2em;
+}
+
+.continuousFraction sub.subPolyIndex {
+    top: -3.8em;
+}
+
+.continuousFraction sub.factorIndex {
+    top: -3em;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+/* Pulsanti */
+
+
+button.ui {	
+	height: 48px;
+	width: 48px;
+	float: right;
+	border: none;
+}
+
+button.answer-button {
+	min-width: 48px;
+	margin: 0.5em;
+}
+
+button.help {
+	background: url("./pictures/guide.png") no-repeat scroll 0 0
+		transparent;
+	width: 41px;	
+}
+
+button.statistics {
+	background: url("./pictures/graph.png") no-repeat scroll 0 0
+		transparent;
+	width: 41px;
+	margin-right: 1em;
+}
+
+button.refresh {
+	background: url("./pictures/Refresh-icon.png") no-repeat scroll 0 0
+		transparent;
+	float: left;
+}
+
+button.operate {
+	background: url("./pictures/calc.png") no-repeat scroll 0 0 transparent;
+}
+
+button.contact {
+	background: url("./pictures/feedback.png") no-repeat scroll 0 0 transparent;
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
+	float: right;
+}
+
+button.success {
+	background: url("./pictures/ok.png") no-repeat scroll 0 0 transparent;
+	float: left;
+	margin-left: 5px;
+}
+
+button.close{
+	background: url("./pictures/close-button.png") no-repeat scroll 0 0 transparent;
+	height: 24px;
+	width: 24px;
+	float: right;
+}
+
+button.ui:hover {
+	opacity: 0.8;		
+}
+
+/* Glowing buttons */
+@keyframes pulse {
+    from { background-color: #eee; box-shadow: 0 0 9px #eee; opacity: 1; }
+	50% { background-color: #8f8; box-shadow: 0 0 32px #0f0; opacity: 0.8;}v
+    to { background-color: #eee; box-shadow: 0 0 9px #eee; opacity: 1;}
+}      
+    
+@-webkit-keyframes greenPulse {
+    from { background-color: #eee; -webkit-box-shadow: 0 0 9px #eee; opacity: 1; }    
+	50% { background-color: #8f8; -webkit-box-shadow: 0 0 32px #0f0; opacity: 0.8;}
+    to { background-color: #eee; -webkit-box-shadow: 0 0 9px #eee; opacity: 1;}
+}
+
+button.glowingButton {
+	animation-name: pulse;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	-webkit-animation-name: pulse;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+/*	Popup */
+
 div.gwt-PopupPanel {
 	z-index: 100;
 }
 
 div.messagePopupText {
 	padding: 1em;
+	font-size: 18px
 }
 
 div.popupContent {
 	padding: 1em;
 }
+
+table.popup-calculation {
+	margin: auto;
+}
+
+.messageFrame {
+	float: right;
+	padding: 12px;
+	font-size: 18px;
+	font-style: normal;
+}
+
+/* Stats */
+
+div.stats {
+	font-size: 18px;
+	text-align: center;
+}
+
+#stats td {
+    font-size: 14px;
+    padding: 5px;
+    width: 4em;
+}
+
+.dataRow td:hover {
+	background: #ddd;
+}
+
+.stats .bottomLine td{
+	font-weight: bold;
+}
+
+.stats .title {
+	margin: 10px 24px;
+}
+
+.stats .score {
+	margin: 10px 24px 5px;
+}
+
+/* help menu */
+
+#helpMenu img{
+	float: right;
+	width: 100px;
+}
+
+/* Contact form */
+
+
+.messageLabel {
+	clear: both;
+}
+
+.messageText {
+	width: 100%
+}
+.emailAddressLabel{
+	float: left;
+}
+
+.email {
+	margin: 1em 0;
+	width: 100%;	
+}
+
+input.emailAddress {
+	float: right;
+	background: none;
+}
+input.invalidInput {
+	background:	red;
+}
+
+.contact .buttons {
+	width: 100%
+}
+
+.contact .buttons button {
+	width: 80px;
+	border-radius: 2px;
+}
+
+button.cancelButton {
+	float: left;
+}
+
+button.sendButton {
+	float: right;
+}
+
+/* Drag and drop animations */
+
+#POSITIONER {
+	border: 1px solid blue	
+}
+
+#CLONE {
+	border: 1px solid red;
+}
+
+/*    pastable  */
+
+div.pastable {
+	font-size: 20px;
+}
+
+.pastable-title {
+	font-size: 14px;
+}
+
+
+

@@ -4,10 +4,10 @@ import com.google.gwt.i18n.client.Messages;
 
 public interface AlgebrAppMessages extends Messages{
 	
-	@DefaultMessage("Hai completato il calcolo con {0} errori.")
+	@DefaultMessage("<b>Hai completato il calcolo con {0} errori</b> <br/><i>Premi il tasto azzurro per continuare</i>")
 	String calculationCompleted(String errorNumber);
 	
-	@DefaultMessage("Hai completato il calcolo con 1 errore.")
+	@DefaultMessage("<b>Hai completato il calcolo con 1 errore</b> <br/><i>Premi il tasto azzurro per continuare</i> ")
 	String calculationCompletedWithOneError();
 
 }

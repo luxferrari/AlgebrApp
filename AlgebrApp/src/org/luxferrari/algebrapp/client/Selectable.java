@@ -15,5 +15,5 @@ public interface Selectable {
 	 */
 	public void refreshIndex(String index);
 	
-	public boolean isSelected();
+	public boolean isSelected();	
 }
