@@ -193,7 +193,7 @@ public class SelectedItemsList extends ArrayList<Selectable>{
 		
 		// "Sottrazione" della parte letterale, tipo 3x - x = 3 oppure 5x - 2x = 3
 		
-		if(second.getCoefficient().equals(-1)){
+		if(second.getCoefficient().value() == -1){
 			Monomial case2 = new Monomial(first.getCoefficientCopy(), this.incorrectLiterals(literals, literals, 2), false);			
 			if(!case2.isContainedIn(output)){output.add(case2);}
 		}

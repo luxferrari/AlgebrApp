@@ -28,14 +28,12 @@ public class Monomial extends Button implements Selectable, MathItem{
 	private boolean isSimplified = SIMPLIFIED;
 	private boolean hasPlus = true;
 	private boolean isDraggable;
-	
+
 	/** Costruttore di un oggetto di tipo Monomial
 	 * @param c	coefficiente del monomio
 	 * @param l parte letterale del polinomio
 	 * @param isDraggable 
 	 */
-	
-	
 	public Monomial(Fraction c, String[] l, boolean isDraggable, boolean makeSimplified) {
 		super();
 		this.coefficient = new Fraction(c);
@@ -44,11 +42,9 @@ public class Monomial extends Button implements Selectable, MathItem{
 
 		this.isDraggable = isDraggable;
 		this.isSimplified = makeSimplified;	
-		
 		if(!isSimplified) hasPlus = rndGenerator.nextInt(2) == 0 ? true : false;
-
 		if(levelSlider.getValue() != null) hasPlus = levelSlider.getValue() == 0 ? true : hasPlus;
-		
+
 		this.refresh();
 		this.deselect();
 		this.setTitle(constants.tooltipMonomial());

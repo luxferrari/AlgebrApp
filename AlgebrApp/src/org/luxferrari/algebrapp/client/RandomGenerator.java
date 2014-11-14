@@ -44,8 +44,7 @@ public class RandomGenerator extends Random{
 		return m;
 	}
 
-	public void primeFactorsChoices(){	
-		//TODO Enthält zauberZahlen		
+	public void primeFactorsChoices(){	//TODO Enthält zauberZahlen		
 		int chosenFactorsNumber = 3 + this.nextInt(3);
 		chosenFactors = new int[chosenFactorsNumber];
 		chosenFactors[0] = 1;
@@ -57,8 +56,7 @@ public class RandomGenerator extends Random{
 	}
 
 
-	public Fraction randomFraction(int coeffRange, boolean forProduct){	
-		//TODO Enthält zauberZahlen		
+	public Fraction randomFraction(int coeffRange, boolean forProduct){	//TODO Enthält zauberZahlen		
 		int num = 0;
 		int den = 1;
 		int level = 1;
@@ -72,7 +70,6 @@ public class RandomGenerator extends Random{
 		while(num == 0){
 			num = (this.nextInt(coeffRange * 2 + 1) - coeffRange);
 		}
-		
 		if(!Z_ONLY){
 			do{
 				den = randomDenominator(forProduct);

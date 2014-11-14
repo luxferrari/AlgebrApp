@@ -439,24 +439,38 @@ button.answer-button {
 button.help {
 	background: url("./pictures/guide.png") no-repeat scroll 0 0
 		transparent;
-	width: 41px;	
+	width: 41px;
+	height: 50px;
+	float: right;
+	border: none;
+	
 }
 
 button.statistics {
 	background: url("./pictures/graph.png") no-repeat scroll 0 0
 		transparent;
-	width: 41px;
+	width: 60px;
+	height: 50px;
 	margin-right: 1em;
+	float: right;
+	border: none;
 }
 
 button.refresh {
 	background: url("./pictures/Refresh-icon.png") no-repeat scroll 0 0
 		transparent;
 	float: left;
+	width: 48px;
+	height: 48px;
+	border: none;
 }
 
 button.operate {
 	background: url("./pictures/calc.png") no-repeat scroll 0 0 transparent;
+	width: 48px;
+	height: 48px;
+	float: right;
+	border: none;
 }
 
 button.contact {
@@ -465,12 +479,16 @@ button.contact {
 	right: 1em;
 	bottom: 1em;
 	float: right;
+	border: none;
 }
 
 button.success {
 	background: url("./pictures/ok.png") no-repeat scroll 0 0 transparent;
 	float: left;
 	margin-left: 5px;
+	width: 48px;
+	height: 48px;
+	border: none;
 }
 
 button.close{
@@ -478,6 +496,7 @@ button.close{
 	height: 24px;
 	width: 24px;
 	float: right;
+	border: none;
 }
 
 button.ui:hover {
@@ -631,6 +650,4 @@ div.pastable {
 .pastable-title {
 	font-size: 14px;
 }
-
-
 

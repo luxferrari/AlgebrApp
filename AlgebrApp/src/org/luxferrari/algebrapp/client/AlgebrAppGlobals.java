@@ -68,7 +68,6 @@ public class AlgebrAppGlobals {					//  Veeery bad practice, they say.
 
 	public static Button help = new Button();
 	public static Button statistics = new Button();
-	public static Button contact = new Button();
 	public static Button operate = new Button();
 	public static Button refresh = new Button();
 	public static Button success = new Button();
@@ -174,7 +173,7 @@ public class AlgebrAppGlobals {					//  Veeery bad practice, they say.
 		HTML headerPageEnd = new HTML();
 		headerPageEnd.setHTML("<h5 class='menuHeader'>" + constants.headerPageEnd() + "</h5>");
 
-		helpPageAdd.add(new Image("/pictures/under-construction.png"));
+		//helpPageAdd.add(new Image("/pictures/under-construction.png"));
 		helpPageAdd.add(new HTML(constants.helpPageAddText()));
 
 		helpPageMultiply.add(new HTML(constants.helpPageMultiplyText()));
@@ -282,16 +281,6 @@ public class AlgebrAppGlobals {					//  Veeery bad practice, they say.
 	}
 
 
-	public static final void showContactForm(){
-		ContactForm contactForm = new ContactForm();
-		contactForm.setModal(true);
-		contactForm.setGlassEnabled(true);
-		contactForm.setAutoHideEnabled(false);
-		contactForm.setAnimationEnabled(true);
-		contactForm.center();
-	}
-	
-	
 	public static final void msgPanel(String msg) {
 		msgBox.setText(msg);
 		msgBox.center();
