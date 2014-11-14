@@ -1,2 +1,0 @@
-serviceClass: org.luxferrari.algebrapp.client.AlgebrAppServlet
-path: 3B6F445A4C3EE98BD0F6EAC905685939.gwt.rpc
